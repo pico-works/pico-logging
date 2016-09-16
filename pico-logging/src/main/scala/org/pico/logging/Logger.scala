@@ -19,15 +19,15 @@ object Logger {
     new Logger {
       val classTag = implicitly[ClassTag[C]]
 
-      override def info(message: => String, exception: Exception = null): Unit = {
+      override def debug(message: =>String, exception: Exception = null): Unit = {
         LogBus.publish(LogEvent(classTag, LogDebugLevel, message, exception))
       }
 
-      override def debug(message: =>String, exception: Exception = null): Unit = {
+      override def trace(message: =>String, exception: Exception = null): Unit = {
         LogBus.publish(LogEvent(classTag, LogTraceLevel, message, exception))
       }
 
-      override def trace(message: =>String, exception: Exception = null): Unit = {
+      override def info(message: => String, exception: Exception = null): Unit = {
         LogBus.publish(LogEvent(classTag, LogInfoLevel, message, exception))
       }
 
