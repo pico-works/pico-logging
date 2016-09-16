@@ -1,9 +1,7 @@
 package org.pico.logging
 
-import scala.reflect.ClassTag
-
 sealed trait LogEvent {
-  def classTag: ClassTag[_]
+  def clazz: Class[_]
 
   def level: LogLevel
 
@@ -14,12 +12,12 @@ sealed trait LogEvent {
 
 object LogEvent {
   def apply(
-      theClassTag: ClassTag[_],
+      theClass: Class[_],
       theLevel: LogLevel,
       theMessage: => String,
       theException: Exception): LogEvent = {
     new LogEvent {
-      override def classTag: ClassTag[_] = theClassTag
+      override def clazz: Class[_] = theClass
 
       override def level: LogLevel = theLevel
 

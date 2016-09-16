@@ -17,26 +17,26 @@ trait Logger {
 object Logger {
   def apply[C: ClassTag]: Logger = {
     new Logger {
-      val classTag = implicitly[ClassTag[C]]
+      val runtimeClass = implicitly[ClassTag[C]].runtimeClass
 
-      override def debug(message: =>String, exception: Exception = null): Unit = {
-        LogBus.publish(LogEvent(classTag, LogDebugLevel, message, exception))
+      override def debug(message: => String, exception: Exception = null): Unit = {
+        LogBus.publish(LogEvent(runtimeClass, LogDebugLevel, message, exception))
       }
 
-      override def trace(message: =>String, exception: Exception = null): Unit = {
-        LogBus.publish(LogEvent(classTag, LogTraceLevel, message, exception))
+      override def trace(message: => String, exception: Exception = null): Unit = {
+        LogBus.publish(LogEvent(runtimeClass, LogTraceLevel, message, exception))
       }
 
       override def info(message: => String, exception: Exception = null): Unit = {
-        LogBus.publish(LogEvent(classTag, LogInfoLevel, message, exception))
+        LogBus.publish(LogEvent(runtimeClass, LogInfoLevel, message, exception))
       }
 
-      override def warn(message: =>String, exception: Exception = null): Unit = {
-        LogBus.publish(LogEvent(classTag, LogWarnLevel, message, exception))
+      override def warn(message: => String, exception: Exception = null): Unit = {
+        LogBus.publish(LogEvent(runtimeClass, LogWarnLevel, message, exception))
       }
 
       override def error(message: => String, exception: Exception = null): Unit = {
-        LogBus.publish(LogEvent(classTag, LogErrorLevel, message, exception))
+        LogBus.publish(LogEvent(runtimeClass, LogErrorLevel, message, exception))
       }
     }
   }
