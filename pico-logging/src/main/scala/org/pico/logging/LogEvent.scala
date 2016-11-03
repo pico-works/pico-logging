@@ -7,7 +7,10 @@ sealed trait LogEvent {
 
   def message: String
 
-  def exception: Exception
+  def throwable: Throwable
+
+  @deprecated("Use throwable method instead")
+  def exception: Throwable = throwable
 }
 
 object LogEvent {
@@ -15,7 +18,7 @@ object LogEvent {
       theClass: Class[_],
       theLevel: LogLevel,
       theMessage: => String,
-      theException: Exception): LogEvent = {
+      theThrowable: Throwable): LogEvent = {
     new LogEvent {
       override def clazz: Class[_] = theClass
 
@@ -23,7 +26,7 @@ object LogEvent {
 
       override lazy val message: String = theMessage
 
-      override def exception: Exception = theException
+      override def throwable: Throwable = theThrowable
     }
   }
 }
