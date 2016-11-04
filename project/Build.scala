@@ -14,7 +14,7 @@ object Build extends sbt.Build {
           .settings(description := theDescription)
           .settings(isSnapshot := true)
           .settings(resolvers += Resolver.sonatypeRepo("releases"))
-          .settings(addCompilerPlugin("org.spire-math" % "kind-projector" % "0.8.0" cross CrossVersion.binary))
+          .settings(addCompilerPlugin("org.spire-math" % "kind-projector" % "0.9.3" cross CrossVersion.binary))
     }
 
     def notPublished = self.settings(publish := {}).settings(publishArtifact := false)
